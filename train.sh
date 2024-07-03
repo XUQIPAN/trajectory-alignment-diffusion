@@ -9,6 +9,7 @@ DATA_FLAGS="--data_dir ./dom_dataset/DATASET_TOPOLOGY_64_INTERMEDIATE_v1/dataset
 
 
 # export CUDA_VISIBLE_DEVICES=4,5;
+# test
 export CUDA_LAUNCH_BLOCKING=1;
 export TORCH_USE_CUDA_DSA=1;
 CUDA_LAUNCH_BLOCKING=1 python scripts/image_train_intermediate_kernel.py $MODEL_FLAGS $DIFFUSION_FLAGS $TRAIN_FLAGS $DATA_FLAGS
