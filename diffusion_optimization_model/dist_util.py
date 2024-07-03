@@ -24,7 +24,9 @@ def setup_dist():
     """
     if dist.is_initialized():
         return
-    os.environ["CUDA_VISIBLE_DEVICES"] = f"{MPI.COMM_WORLD.Get_rank() % GPUS_PER_NODE}"
+    os.environ["CUDA_VISIBLE_DEVICES"] = '4, 5'
+    os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
+    os.environ['TORCH_USE_CUDA_DSA'] = "1"
 
     comm = MPI.COMM_WORLD
     backend = "gloo" if not th.cuda.is_available() else "nccl"

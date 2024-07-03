@@ -5,6 +5,7 @@ Train the main diffusion model (regardless of guidance) on images.
 import argparse
 import os
 import sys
+sys.path.append('/research/cbim/medical/qx67/trajectory-alignment-diffusion')
 
 import matplotlib.pyplot as plt
 import numpy as np

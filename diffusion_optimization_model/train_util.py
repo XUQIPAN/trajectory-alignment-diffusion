@@ -70,6 +70,8 @@ class TrainLoop:
         self.step = 0
         self.resume_step = 0
         self.global_batch = self.batch_size * dist.get_world_size()
+        # self.global_batch = self.batch_size
+        # print("global_batch: ", self.global_batch)
 
         self.sync_cuda = th.cuda.is_available()
 
@@ -233,10 +235,17 @@ class TrainLoop:
             #     t_residual = int(t_residual)
             
             t_residual = n_inter * (1 - t / self.num_timesteps)
-            t_residual = int(t_residual)
+            t_residual = t_residual.int()
             t_residual = t_residual.long()
+            # in case of IndexError
+            t_residual[t_residual >= 5] = 4
+            # print(t_residual)
+            # print(t_residual.size())
+            # miro_inter size: [32, 5, 64, 64]
+            # print(micro_inter.size())
             
             micro_inter = micro_inter[th.arange(micro_inter.size(0)), t_residual]
+            # print(micro_inter.size())
             micro_inter = micro_inter.unsqueeze(1)
             
             micro_performance=micro_performance[th.arange(micro_inter.size(0)), t_residual]
